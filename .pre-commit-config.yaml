@@ -1,0 +1,43 @@
+# Define the pre-commit hooks that should be installed and run on every commit.
+default_install_hook_types:
+  - pre-commit
+  - commit-msg
+
+# The hooks are run in the order they are defined.
+repos:
+  # Detect hardcoded secrets in the repository using Gitleaks.
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks
+        name: Gitleaks
+        description: Scan for hardcoded secrets in the repository using Gitleaks.
+        stages: [pre-commit]
+
+  # Check for common issues in shell scripts using ShellCheck.
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.11.0
+    hooks:
+      - id: shellcheck
+        name: Shell Check
+        description: Static analysis tool for shell scripts.
+        stages: [pre-commit]
+
+    # Format shell scripts using shfmt.
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.12.0-2
+    hooks:
+      - id: shfmt
+        name: Shell Format
+        description: Format shell scripts using shfmt.
+        stages: [pre-commit]
+
+  # Validate commit messages using conventional commits.
+  # For more information, see: https://www.conventionalcommits.org
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.13.7
+    hooks:
+      - id: commitizen
+        name: Commitizen
+        description: Validate commit messages against the Conventional Commits specification.
+        stages: [commit-msg]

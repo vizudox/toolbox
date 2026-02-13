@@ -1,0 +1,21 @@
+# Title for the gitleaks configuration file.
+title = "Custom Gitleaks configuration"
+
+# Extend a configuration, the rules are overwritten or extended.
+# Default configuration as starting point: https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
+[extend]
+
+# UseDefault will extend the default gitleaks config built in to the binary.
+# The latest version is located at: https://github.com/gitleaks/gitleaks/blob/master/config/gitleaks.toml
+useDefault = true
+
+# If there are any rules you don't want to inherit, they can be specified here.
+# disabledRules = [ "generic-api-key"]
+
+# Namecheap Dynamic DNS Password.
+[[rules]]
+    id = "namecheap-ddns-password"
+    description = "Detected a Namecheap Dynamic DNS Password"
+    regex = '''(?i)DDNS_PASSWORD\s*=\s*[a-f0-9]{32}'''
+    keywords = ["ddns_password", "namecheap"]
+    severity = "critical"
